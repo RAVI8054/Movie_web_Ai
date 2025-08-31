@@ -7,10 +7,8 @@ export async function connectDB() {
   if (isConnected) return; // Prevent multiple connections
 
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    // ✅ Mongoose 7+ / MongoDB driver 4+ — 
+    await mongoose.connect(process.env.MONGO_URI);
 
     isConnected = true;
     console.log("✅ MongoDB Connected");

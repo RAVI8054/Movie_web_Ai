@@ -55,7 +55,11 @@ export default function Chat() {
       } else {
         setMessages([
           ...updatedMessages,
-          { sender: "ai", type: "text", text: "⚠️ No valid response." },
+          {
+            sender: "ai",
+            type: "text",
+            text: "❌ Sorry, I couldn’t understand. Please wait 1–2 seconds or try again.",
+          },
         ]);
       }
 
@@ -71,15 +75,9 @@ export default function Chat() {
 
   return (
     <div className="flex w-full h-screen">
-      {/* Left Image (hide only when width ≤ 500px) */}
+      {/* Left Image */}
       <div className="w-1/5 h-full relative max-[500px]:hidden">
-        <Image
-          src="/robo.jpg"
-          alt="AI"
-          fill
-          className="object-cover"
-          priority
-        />
+        <Image src="/robo.jpg" alt="AI" fill className="object-cover" priority />
       </div>
 
       {/* Chat Window */}
@@ -89,38 +87,30 @@ export default function Chat() {
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`flex ${
-                msg.sender === "ai" ? "justify-start" : "justify-end"
-              }`}
+              className={`flex ${msg.sender === "ai" ? "justify-start" : "justify-end"}`}
             >
               {msg.sender === "ai" && msg.type === "movies" ? (
                 <div className="grid gap-4">
                   {msg.movies.map((movie, i) => (
-                    <div
-                      key={i}
-                      className="bg-white shadow-md rounded-lg p-4 border"
-                    >
-                      <h3 className="font-bold text-lg text-gray-800">
-                        {movie.title}
-                      </h3>
+                    <div key={i} className="bg-white shadow-md rounded-lg p-4 border">
+                      <h3 className="font-bold text-lg text-gray-800">{movie.title}</h3>
                       <p className="text-gray-600">{movie.description}</p>
                       <p className="text-sm mt-1">
-                        <span className="font-semibold">📅 Year:</span>{" "}
-                        {movie.year}
+                        <span className="font-semibold">📅 Year:</span> {movie.year}
                       </p>
                       <p className="text-sm">
-                        <span className="font-semibold">⭐ Rating:</span>{" "}
-                        {movie.rating}
+                        <span className="font-semibold">⭐ Rating:</span> {movie.rating}
+                      </p>
+                      <p className="text-sm">
+                        <span className="font-semibold">🎭 Genre:</span> {movie.genre}
                       </p>
                     </div>
                   ))}
                 </div>
               ) : (
                 <div
-                  className={`max-w-xs px-4 py-2 rounded-lg shadow ${
-                    msg.sender === "ai"
-                      ? "bg-blue-100 text-left"
-                      : "bg-green-100 text-right"
+                  className={`max-w-xs px-5 py-3 rounded-2xl shadow-md ${
+                    msg.sender === "ai" ? "bg-blue-100 text-left" : "bg-green-100 text-right"
                   }`}
                 >
                   {msg.text}
@@ -135,7 +125,7 @@ export default function Chat() {
         <div className="p-4 bg-red-100 flex items-center">
           <input
             type="text"
-            className="w-full p-2 outline-none bg-white rounded-l-2xl"
+            className="w-full h-12 px-4 outline-none bg-white rounded-l-2xl text-base"
             placeholder="Type your message..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -145,21 +135,16 @@ export default function Chat() {
           />
           <div
             onClick={handleSearch}
-            className="bg-white p-2 cursor-pointer rounded-r-2xl"
+            className="bg-white h-12 w-12 flex items-center justify-center cursor-pointer rounded-r-2xl"
           >
-            <IoSearch size="25px" color="black" />
+            <IoSearch size="22px" color="black" />
           </div>
         </div>
       </div>
 
-      {/* Right Image (hide only when width ≤ 500px) */}
+      {/* Right Image */}
       <div className="w-1/5 h-full relative max-[500px]:hidden">
-        <Image
-          src="/unknow.jpg"
-          alt="User"
-          fill
-          className="object-cover"
-        />
+        <Image src="/unknow.jpg" alt="User" fill className="object-cover" />
       </div>
     </div>
   );
