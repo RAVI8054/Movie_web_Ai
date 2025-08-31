@@ -45,6 +45,7 @@ This project provides a **movie search assistant** using [LangChain](https://js.
 
    ```env
    NEXT_PUBLIC_BASE_URL=http://localhost:3000   # or your API base URL
+   MONGO_URI=mongodb+srv://ravimrvr:IvHlWZdsjDacxzol@cluster0.z1nmh6r.mongodb.net/
    ```
 
 ---
